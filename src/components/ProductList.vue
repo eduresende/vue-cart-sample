@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <table>
-      <thead>
-        <th>Produto</th>
-        <th>Preço</th>
-      </thead>
-      <tbody>
-        <ProductListItem
-          v-for="product in products"
-          :product="product"
-          :key="product.id"
-        />
-      </tbody>
-    </table>
-    </div>
+  <table>
+    <thead>
+      <th>Produto</th>
+      <th>Preço</th>
+    </thead>
+    <tbody>
+      <ProductListItem
+        v-for="product in products"
+        :product="product"
+        :key="product.id"
+      />
+    </tbody>
+  </table>
 </template>
 
 <script>

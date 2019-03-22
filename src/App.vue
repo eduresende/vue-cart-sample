@@ -1,17 +1,22 @@
 <template>
   <div id='app'>
-    <ProductList :products='allProducts' />
+    <SearchBar @termChange='termChange' />
+    <ProductList :products='products' />
   </div>
 </template>
 
 <script>
+  import lodash from 'lodash';
+
   import ProductList from './components/ProductList';
+  import SearchBar from './components/SearchBar'
 
   export default {
     name: 'App',
 
     components: {
-      ProductList
+      ProductList,
+      SearchBar
     },
 
     data() {
@@ -25,8 +30,43 @@
           { id: 6, title: 'Livro', price: 100, },
           { id: 7, title: 'Mochila', price: 200, },
           { id: 8, title: 'Notebook', price: 1000 },
-        ]
+        ],
+
+        term: '',
+      }
+    },
+
+    methods: {
+      termChange: function(term) {
+        this.term = term;
+      }
+    },
+
+    computed: {
+      products() {
+        if (!this.term) {
+          return this.allProducts;
+        } else {
+          var selected = [];
+          const termRegex = new RegExp(this.term, 'i');
+
+          lodash.forEach(this.allProducts, (product) => {
+            if (product.title.match(termRegex)) {
+              selected.push(product);
+            }
+          });
+
+          return selected;
+        }
       }
     }
   }
 </script>
+
+<style scoped>
+  #app {
+    margin: 20px;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+</style>
