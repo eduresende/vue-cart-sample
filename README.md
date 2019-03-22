@@ -1,4 +1,9 @@
-# vue-cart-sample
+
+# Vue Cart Sample
+
+A really simple application designed to learn how to use the Vue libray
+
+Created with: <a href="https://cli.vuejs.org/" target="_blank">Vue CLI</a>
 
 ## Project setup
 ```
