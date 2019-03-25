@@ -9,6 +9,7 @@
         v-for="product in products"
         :product="product"
         :key="product.id"
+        @productSelect="productSelect"
       />
     </tbody>
   </table>
@@ -24,7 +25,13 @@
       ProductListItem
     },
 
-    props: ['products']
+    props: ['products'],
+
+    methods: {
+      productSelect(product) {
+        this.$emit('productSelect', product);
+      }
+    }
   }
 </script>
 

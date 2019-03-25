@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr @click='onClick'>
     <td>{{product.title}}</td>
     <td>{{product.price}}</td>
   </tr>
@@ -8,6 +8,23 @@
 <script>
   export default {
     name: 'ProductListItem',
-    props: ['product']
+
+    props: ['product'],
+
+    methods: {
+      onClick() {
+        this.$emit('productSelect', this.product);
+      }
+    }
   }
 </script>
+
+<style scoped>
+  tr {
+    cursor: pointer;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+</style>

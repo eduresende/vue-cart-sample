@@ -1,7 +1,8 @@
 <template>
   <div id='app'>
     <SearchBar @termChange='termChange' />
-    <ProductList :products='products' />
+    <ProductList :products='products' @productSelect='productSelect'/>
+    <SelectedProduct :product='selectedProduct' />
   </div>
 </template>
 
@@ -9,14 +10,16 @@
   import lodash from 'lodash';
 
   import ProductList from './components/ProductList';
-  import SearchBar from './components/SearchBar'
+  import SearchBar from './components/SearchBar';
+  import SelectedProduct from './components/SelectedProduct';
 
   export default {
     name: 'App',
 
     components: {
       ProductList,
-      SearchBar
+      SearchBar,
+      SelectedProduct
     },
 
     data() {
@@ -33,12 +36,18 @@
         ],
 
         term: '',
+
+        selectedProduct: 'Produto selecionado',
       }
     },
 
     methods: {
       termChange: function(term) {
         this.term = term;
+      },
+
+      productSelect(product) {
+        this.selectedProduct = product;
       }
     },
 
