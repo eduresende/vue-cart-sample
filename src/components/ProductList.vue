@@ -37,4 +37,9 @@
   th, td {
     padding: 5px;
   }
+
+  th {
+    background-color: #333;
+    color: #ddd;
+  }
 </style>
