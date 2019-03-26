@@ -2,6 +2,7 @@
   <div v-if='product'>
     <strong>{{ product.title }}</strong>
     ( {{ product.price }} )
+    <button @click='addItem'>Add</button>
   </div>
 </template>
 
@@ -9,6 +10,12 @@
   export default {
     name: 'SelectedProduct',
     props: ['product'],
+
+    methods: {
+      addItem() {
+        this.$emit('addItem', this.product);
+      }
+    }
   }
 </script>
 

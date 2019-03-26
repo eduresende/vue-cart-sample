@@ -2,7 +2,8 @@
   <div id='app'>
     <SearchBar @termChange='termChange' />
     <ProductList :products='products' @productSelect='productSelect'/>
-    <SelectedProduct :product='selectedProduct' />
+    <SelectedProduct :product='selectedProduct' @addItem='addItem'/>
+    <Cart :items='cartItems' @addItem='addItem' @removeItem='removeItem' />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
   import ProductList from './components/ProductList';
   import SearchBar from './components/SearchBar';
   import SelectedProduct from './components/SelectedProduct';
+  import Cart from './components/Cart'
 
   export default {
     name: 'App',
@@ -19,7 +21,8 @@
     components: {
       ProductList,
       SearchBar,
-      SelectedProduct
+      SelectedProduct,
+      Cart
     },
 
     data() {
@@ -37,7 +40,9 @@
 
         term: '',
 
-        selectedProduct: 'Produto selecionado',
+        selectedProduct: null,
+
+        cartItems: []
       }
     },
 
@@ -48,6 +53,41 @@
 
       productSelect(product) {
         this.selectedProduct = product;
+      },
+
+      addItem(item) {
+        var newCartItems = [];
+        var added = false;
+
+        lodash.forEach(this.cartItems, (cartItem) => {
+          if (cartItem.id == item.id) {
+            cartItem.quantity++;
+            added = true;
+          }
+          newCartItems.push(cartItem);
+        });
+
+        if (!added) {
+          newCartItems.push({ id: item.id, title: item.title, price: item.price, quantity: 1 });
+        }
+
+        this.cartItems = newCartItems;
+      },
+
+      removeItem(item) {
+        var newCartItems = [];
+
+        lodash.forEach(this.cartItems, (cartItem) => {
+          if (cartItem.id == item.id) {
+            cartItem.quantity--;
+          }
+
+          if (cartItem.quantity > 0) {
+            newCartItems.push(cartItem);
+          }
+        });
+
+        this.cartItems = newCartItems;
       }
     },
 
